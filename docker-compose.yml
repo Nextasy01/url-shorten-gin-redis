@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: api/Dockerfile
    ports:
-     - "6000:6000"
+     - "6600:6600"
    depends_on:
      - db 
  db:

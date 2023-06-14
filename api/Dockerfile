@@ -14,6 +14,6 @@ COPY . .
 # Build the Go application
 RUN go build -o main .
 
-EXPOSE 6000
+EXPOSE 6600
 
 CMD ["./main"]
