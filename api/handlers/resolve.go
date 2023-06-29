@@ -43,4 +43,13 @@ func (u *URLResolveHandler) ResolveURL(ctx *gin.Context) {
 	_ = rInr.Incr(u.db.Conn, "counter")
 
 	ctx.Redirect(301, val)
+
+	// delete url after user redirects to it
+	_, err = rInr.Del(ctx, url).Result()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 }
