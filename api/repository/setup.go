@@ -19,9 +19,8 @@ func NewDatabase() Database {
 
 func (db *Database) CreateConnection(dbNo int) *redis.Client {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     os.Getenv("DB_ADDR"),
-		Password: os.Getenv("DB_PASS"),
-		DB:       dbNo,
+		Addr: os.Getenv("DB_ADDR"),
+		DB:   dbNo,
 	})
 	return rdb
 }
