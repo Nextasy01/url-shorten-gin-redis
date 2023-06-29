@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/Nextasy01/url-shorten-gin-redis/api/repository"
@@ -19,7 +18,7 @@ func NewURLResolveHandler(db *repository.Database) URLResolveHandler {
 
 func (u *URLResolveHandler) ResolveURL(ctx *gin.Context) {
 	url, _ := ctx.Params.Get("url")
-	log.Println(url)
+	// log.Println(url)
 	r := u.db.CreateConnection(0)
 	defer r.Close()
 
@@ -43,7 +42,7 @@ func (u *URLResolveHandler) ResolveURL(ctx *gin.Context) {
 	_ = rInr.Incr(u.db.Conn, "counter")
 
 	// delete url after user redirects to it
-	_, err = rInr.Del(ctx, url).Result()
+	_, err = r.Del(u.db.Conn, url).Result()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),

@@ -2,12 +2,12 @@ version: "3"
 
 services:
  api:
-  #  build:
-  #     context: .
-  #     dockerfile: api/Dockerfile
-   image: nextasy01/url-shortener:latest
+   build:
+      context: .
+      dockerfile: api/Dockerfile
+  #  image: nextasy01/url-shortener:latest
    ports:
-     - "6600:6600"
+     - "9000:9000"
    depends_on:
      - db 
  db:
