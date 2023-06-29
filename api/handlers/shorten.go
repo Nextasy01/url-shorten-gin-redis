@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -65,6 +66,8 @@ func (u *URLShortenHandler) ShortenURL(ctx *gin.Context) {
 		_ = r.Set(u.db.Conn, ctx.ClientIP(), os.Getenv("API_QUOTA"), 30*60*time.Second).Err()
 	} else {
 		valInt, _ := strconv.Atoi(val)
+		log.Println("API_QUOTA: " + os.Getenv("API_QUOTA"))
+		log.Println(err.Error())
 		if valInt <= 0 {
 			limit, _ := r.TTL(u.db.Conn, ctx.ClientIP()).Result()
 			ctx.JSON(http.StatusServiceUnavailable, gin.H{
